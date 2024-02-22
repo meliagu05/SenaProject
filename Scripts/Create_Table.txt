@@ -1,0 +1,41 @@
+CREATE TABLE `customers` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Names` varchar(100) NOT NULL,
+  `Surnames` varchar(100) NOT NULL,
+  `IdentificationDocument` varchar(50) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
+  `Birthdate` varchar(10) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+CREATE TABLE `orders` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `CreationDate` varchar(10) NOT NULL,
+  `Observations` varchar(200) DEFAULT NULL,
+  `Price` float NOT NULL,
+  `Status` bit(1) NOT NULL,
+  `IdClient` int(11) NOT NULL,
+  `IdTable` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `fk_IdClient` (`IdClient`),
+  KEY `fk_IdTable` (`IdTable`),
+  CONSTRAINT `fk_IdClient` FOREIGN KEY (`IdClient`) REFERENCES `customers` (`Id`),
+  CONSTRAINT `fk_IdTable` FOREIGN KEY (`IdTable`) REFERENCES `eaterytable` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+CREATE TABLE `products` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) NOT NULL,
+  `Description` varchar(200) NOT NULL,
+  `Price` float NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+CREATE TABLE `eaterytable` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Number` int(11) NOT NULL,
+  `Capacity` varchar(5) NOT NULL,
+  `Status` bit(1) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
